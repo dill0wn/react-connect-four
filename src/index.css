@@ -36,6 +36,10 @@ ol, ul {
     width: 34px;
 }
 
+.square.highlight {
+    background: goldenrod;   
+}
+
 .square:focus { outline: none;}
 
 .kbd-navigation .square:focus { 

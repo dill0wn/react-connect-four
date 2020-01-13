@@ -4,8 +4,12 @@ import './index.css';
 
 
 function Square(props) {
+    const classNames = [
+        'square',
+        (props.highlight ? 'highlight' : '')
+    ];
     return (
-        <button className="square" onClick={props.onClick} >
+        <button className={classNames.join(' ')} onClick={props.onClick} >
             {props.value}
         </button>
     );
@@ -13,8 +17,10 @@ function Square(props) {
 
 class Board extends React.Component {
     renderSquare(i) {
-        return <Square
+        const highlights = this.props.highlights || [];
+        return <Square key={`square-${i}`}
             value={this.props.squares[i]}
+            highlight={highlights.indexOf(i) > -1}
             onClick={() => this.props.onClick(i)}
         />;
     }
@@ -29,7 +35,7 @@ class Board extends React.Component {
                 row[c] = this.renderSquare(i);
             }
             grid[r] =
-                <div className="board-row">
+                <div className="board-row" key={`row-${r}`}>
                     {row}
                 </div>;
         }
@@ -119,8 +125,10 @@ class Game extends React.Component {
             });
 
         let status;
+        let line;
         if (winner) {
-            status = 'Winner: ' + winner;
+            status = 'Winner: ' + winner.team;
+            line = winner.line;
         } else {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
         }
@@ -137,6 +145,7 @@ class Game extends React.Component {
                 <div className="game-board">
                     <Board
                         squares={current.squares}
+                        highlights={line}
                         onClick={(i) => this.handleClick(i)} />
                 </div>
                 <div className="game-info">
@@ -172,7 +181,10 @@ function calculateWinner(squares) {
     for (let i = 0; i < lines.length; i++) {
         const [a, b, c] = lines[i];
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-            return squares[a];
+            return {
+                team: squares[a],
+                line: [a, b, c]
+            };
         }
     }
     return null;

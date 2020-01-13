@@ -10,7 +10,7 @@ Following along the official React Tic Tac Toe tutorial - [https://reactjs.org/t
 > 2. ~~Bold the currently selected item in the move list.~~
 > 3. ~~ewrite Board to use two loops to make the squares instead of hardcoding them.~~
 > 4. ~~Add a toggle button that lets you sort the moves in either ascending or descending order.~~
-> 5. When someone wins, highlight the three squares that caused the win.
+> 5. ~~When someone wins, highlight the three squares that caused the win.~~
 > 6. When no one wins, display a message about the result being a draw.
 
 
