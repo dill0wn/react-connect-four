@@ -49,10 +49,10 @@ ol, ul {
     transform: translate(0%, 5%);
 }
 
-.dot.blue {
+.blue {
     background: cornflowerblue;
 }
-.dot.red {
+.red {
     background: indianred;
 }
 

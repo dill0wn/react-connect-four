@@ -4,23 +4,24 @@ import './index.css';
 
 
 function Square(props) {
-    const buttonClasses = [
-        'square',
-        (props.highlight ? 'highlight' : '')
-    ];
+    // const buttonClasses = [
+    //     'square',
+    //     (props.highlight ? 'highlight' : '')
+    // ];
     return (
-        <button className={buttonClasses.join(' ')} onClick={props.onClick} >
-            <Dot value={props.value}/>
+        <button
+            className={`square ${props.highlight ? props.value : ''}`}
+            onClick={props.onClick}
+        >
+            <Dot value={props.value} />
         </button>
     );
 }
 
 function Dot(props) {
-    let classNames = ["dot"];
-    if(props.value === 'X') classNames.push('blue');
-    if(props.value === 'O') classNames.push('red');
-
-    return (<span className={classNames.join(' ')}></span>);
+    return (
+        <span className={`dot ${props.value}`}></span>
+    );
 }
 
 class Board extends React.Component {
@@ -63,7 +64,7 @@ class Game extends React.Component {
             }],
             ascending: true,
             stepNumber: 0,
-            xIsNext: true,
+            blueIsNext: true,
         };
     }
 
@@ -83,7 +84,7 @@ class Game extends React.Component {
             return;
         }
 
-        squares[index] = this.state.xIsNext ? 'X' : 'O';
+        squares[index] = this.state.blueIsNext ? 'blue' : 'red';
 
         this.setState({
             history: history.concat([{
@@ -91,14 +92,14 @@ class Game extends React.Component {
                 position: index
             }]),
             stepNumber: history.length,
-            xIsNext: !this.state.xIsNext
+            blueIsNext: !this.state.blueIsNext
         });
     }
 
     jumpTo(step) {
         this.setState({
             stepNumber: step,
-            xIsNext: (step % 2) === 0
+            blueIsNext: (step % 2) === 0
         })
     }
 
@@ -124,7 +125,7 @@ class Game extends React.Component {
                 const move = step.move;
                 const col = calculateCol(step.position);
                 const row = calculateRow(step.position);
-                const value = move % 2 === 1 ? 'X' : '0';
+                const value = move % 2 === 1 ? 'blue' : 'red';
                 const desc = move ?
                     'Go to move #' + move + ' ' + value + '@( ' + col + ', ' + row + ' )' :
                     'Go to game start';
@@ -143,12 +144,12 @@ class Game extends React.Component {
         let status;
         let line;
         if (winner) {
-            status = 'Winner: ' + winner.team;
+            status = 'Winner: ' + winner.team.toUpperCase();
             line = winner.line;
         } else if (current.squares.filter(s => s === null).length === 0) {
             status = 'Draw!';
         } else {
-            status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+            status = 'Next player: ' + (this.state.blueIsNext ? 'Blue' : 'Red');
         }
 
         // button to toggle whether history is ascending/descending
