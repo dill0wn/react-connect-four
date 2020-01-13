@@ -26,8 +26,6 @@ class Board extends React.Component {
     }
 
     render() {
-        const width = 3;
-        const height = 3;
         const grid = Array(height);
         for (let r = 0, i = 0; r < height; r++) {
             const row = Array(width);
@@ -52,7 +50,7 @@ class Game extends React.Component {
         super();
         this.state = {
             history: [{
-                squares: Array(9).fill(null),
+                squares: Array(width * height).fill(null),
                 position: null
             }],
             ascending: true,
@@ -129,7 +127,6 @@ class Game extends React.Component {
         if (winner) {
             status = 'Winner: ' + winner.team;
             line = winner.line;
-            // } else if (history.length > 9){
         } else if (current.squares.filter(s => s === null).length === 0) {
             status = 'Draw!';
         } else {
@@ -169,8 +166,8 @@ function calculateRow(i) {
     return Math.floor(i / width);
 }
 
-const width = 3;
-const height = 3;
+const width = 7;
+const height = 6;
 
 function checkDir(squares, i, getNext, history) {
     history = history || [];
@@ -232,7 +229,7 @@ function calculateWinner(squares) {
         for (let j = 0; j < neighbors.length; j++) {
             const neighborFunc = neighbors[j];
             const line = checkDir(squares, i, neighborFunc);
-            if (line.length >= 3) {
+            if (line.length >= 4) {
                 return {
                     line: line,
                     team: squares[line[0]]
