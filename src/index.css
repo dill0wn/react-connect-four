@@ -41,12 +41,22 @@ ol, ul {
     border-radius: 50%;
 }
 
+.dot {
+    /* background: #bbb; */
+    border-radius: 50%;
+    display: inline-block;
+}
+
 .square .dot {
     width: 90%;
     height:90%;
-    border-radius: 50%;
-    display: inline-block;
+    transform: translate(0%, -705%);
+}
+
+.square .dot.blue,.dot.red {
     transform: translate(0%, 5%);
+    transition-property: transform;
+    transition-duration: 0.5s;
 }
 
 .blue {

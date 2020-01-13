@@ -4,10 +4,6 @@ import './index.css';
 
 
 function Square(props) {
-    // const buttonClasses = [
-    //     'square',
-    //     (props.highlight ? 'highlight' : '')
-    // ];
     return (
         <button
             className={`square ${props.highlight ? props.value : ''}`}
@@ -20,7 +16,7 @@ function Square(props) {
 
 function Dot(props) {
     return (
-        <span className={`dot ${props.value}`}></span>
+        <span className={`dot ${props.value ? props.value : ''}`}></span>
     );
 }
 
