@@ -1,8 +1,10 @@
-# React Tic Tac Toe #
+# React Connect Four #
 
 Following along the official React Tic Tac Toe tutorial - [https://reactjs.org/tutorial/tutorial.html](https://reactjs.org/tutorial/tutorial.html)
 
-## Next Steps ##
+Then modifying and extending it into a connect four game
+
+## React Next Steps ##
 
 > If you have extra time or want to practice your new React skills, here are some ideas for improvements that you could make to the tic-tac-toe game which are listed in order of increasing difficulty:  
 > 
@@ -14,7 +16,10 @@ Following along the official React Tic Tac Toe tutorial - [https://reactjs.org/t
 > 6. ~~When no one wins, display a message about the result being a draw.~~
 
 ## Connect 4 Next Steps ##
-1. ~~Detect lines dynamically~~
+1. ~~Detect lines dynamically (DFS)~~
+2. ~~Expand grid from 3x3 to 7x6 and make a win a line of 4~~
+3. ~~Change Xs and Os to red and blue circles~~
+4. ~~Dropping animation~~
 
 
 
