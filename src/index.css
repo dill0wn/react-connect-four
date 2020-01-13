@@ -34,6 +34,26 @@ ol, ul {
     padding: 0;
     text-align: center;
     width: 34px;
+    /* border-radius: 50%; */
+}
+
+.square-filling {
+    border-radius: 50%;
+}
+
+.square .dot {
+    width: 90%;
+    height:90%;
+    border-radius: 50%;
+    display: inline-block;
+    transform: translate(0%, 5%);
+}
+
+.dot.blue {
+    background: cornflowerblue;
+}
+.dot.red {
+    background: indianred;
 }
 
 .square.highlight {

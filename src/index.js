@@ -4,15 +4,23 @@ import './index.css';
 
 
 function Square(props) {
-    const classNames = [
+    const buttonClasses = [
         'square',
         (props.highlight ? 'highlight' : '')
     ];
     return (
-        <button className={classNames.join(' ')} onClick={props.onClick} >
-            {props.value}
+        <button className={buttonClasses.join(' ')} onClick={props.onClick} >
+            <Dot value={props.value}/>
         </button>
     );
+}
+
+function Dot(props) {
+    let classNames = ["dot"];
+    if(props.value === 'X') classNames.push('blue');
+    if(props.value === 'O') classNames.push('red');
+
+    return (<span className={classNames.join(' ')}></span>);
 }
 
 class Board extends React.Component {
@@ -74,7 +82,7 @@ class Game extends React.Component {
         if (index === null) {
             return;
         }
-        
+
         squares[index] = this.state.xIsNext ? 'X' : 'O';
 
         this.setState({
@@ -263,17 +271,13 @@ function calculateWinner(squares) {
 
 function calculateLowestOpenColumnPosition(squares, i) {
     let bottom = (width * (height - 1)) + i % width;
-    for(; bottom >= 0; bottom -= width ) {
-        if(squares[bottom] === null) {
+    for (; bottom >= 0; bottom -= width) {
+        if (squares[bottom] === null) {
             return bottom;
         }
     }
 
     return null;
-}
-
-function calculateColumnFull(i) {
-    return false;
 }
 
 ReactDOM.render(
