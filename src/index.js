@@ -129,6 +129,9 @@ class Game extends React.Component {
         if (winner) {
             status = 'Winner: ' + winner.team;
             line = winner.line;
+        // } else if (history.length > 9){
+        } else if (current.squares.filter(s => s === null).length === 0) {
+            status = 'Draw!';
         } else {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
         }
