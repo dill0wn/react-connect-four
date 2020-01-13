@@ -129,7 +129,7 @@ class Game extends React.Component {
         if (winner) {
             status = 'Winner: ' + winner.team;
             line = winner.line;
-        // } else if (history.length > 9){
+            // } else if (history.length > 9){
         } else if (current.squares.filter(s => s === null).length === 0) {
             status = 'Draw!';
         } else {
@@ -162,34 +162,85 @@ class Game extends React.Component {
 }
 
 function calculateCol(i) {
-    return i % 3;
+    return i % width;
 }
 
 function calculateRow(i) {
-    return Math.floor(i / 3);
+    return Math.floor(i / width);
 }
 
-function calculateWinner(squares) {
-    const lines = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6],
-    ];
+const width = 3;
+const height = 3;
 
-    for (let i = 0; i < lines.length; i++) {
-        const [a, b, c] = lines[i];
-        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-            return {
-                team: squares[a],
-                line: [a, b, c]
-            };
+function checkDir(squares, i, getNext, history) {
+    history = history || [];
+    if (squares[i] === null) return history;
+    history.push(i);
+    var next = getNext(i);
+    if (squares[next] === squares[i]) {
+        checkDir(squares, next, getNext, history)
+    }
+    return history;
+}
+
+function getNeighborUp(i) {
+    const next = i - width;
+    if (next < 0) {
+        return null;
+    }
+    return next;
+}
+
+function getNeighborUpRight(i) {
+    const next = i - width + 1;
+    if (next < 0) {
+        return null;
+    }
+    if (next % width === 0) {
+        return null;
+    }
+    return next;
+}
+
+function getNeighborRight(i) {
+    const next = (i + 1)
+    if (next % width === 0) {
+        return null;
+    }
+    return next;
+}
+
+function getNeighborDownRight(i) {
+    const next = i + width + 1;
+    if (next >= height * width) {
+        return null;
+    }
+    if (next % width === 0) {
+        return null;
+    }
+    return next;
+}
+
+const neighbors = [getNeighborUp,
+    getNeighborUpRight,
+    getNeighborRight,
+    getNeighborDownRight];
+
+function calculateWinner(squares) {
+
+    for (let i = 0; i < squares.length; i++) {
+        for (let j = 0; j < neighbors.length; j++) {
+            const neighborFunc = neighbors[j];
+            const line = checkDir(squares, i, neighborFunc);
+            if (line.length >= 3) {
+                return {
+                    line: line,
+                    team: squares[line[0]]
+                };
+            }
         }
     }
+
     return null;
 }
 

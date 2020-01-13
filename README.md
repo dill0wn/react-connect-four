@@ -13,7 +13,8 @@ Following along the official React Tic Tac Toe tutorial - [https://reactjs.org/t
 > 5. ~~When someone wins, highlight the three squares that caused the win.~~
 > 6. ~~When no one wins, display a message about the result being a draw.~~
 
-
+## Connect 4 Next Steps ##
+1. ~~Detect lines dynamically~~
 
 
 
