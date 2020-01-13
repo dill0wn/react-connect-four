@@ -49,6 +49,7 @@ class Game extends React.Component {
                 squares: Array(9).fill(null),
                 position: null
             }],
+            ascending: true,
             stepNumber: 0,
             xIsNext: true,
         };
@@ -79,29 +80,43 @@ class Game extends React.Component {
         })
     }
 
+    toggleAscending() {
+        this.setState({
+            ascending: !this.state.ascending
+        })
+    }
+
     render() {
-        const history = this.state.history;
+        // map the history to include the index; 
+        // my rationale for doing it this way is: the index is redundant info
+        // to be stored in the model, and it is only needed for rendering
+        // the data model implicitly has order and index in the array
+        const history = this.state.history.map((h, i) => {
+            return { ...h, move: i };
+        });
         const current = history[this.state.stepNumber];
         const winner = calculateWinner(current.squares);
 
-        const moves = this.state.history.map((step, move) => {
-            const col = calculateCol(step.position);
-            const row = calculateRow(step.position);
-            const value = move % 2 === 1 ? 'X' : '0';
-            const desc = move ?
-                'Go to move #' + move + ' ' + value + '@( ' + col + ', ' + row + ' )' :
-                'Go to game start';
-            return (
-                <li key={move}>
-                    <button
-                        className={move === this.state.stepNumber ? 'highlight' : ''}
-                        onClick={() => this.jumpTo(move)}
-                    >
-                        {desc}
-                    </button>
-                </li>
-            )
-        });
+        const moves = (this.state.ascending ? history : history.reverse())
+            .map((step) => {
+                const move = step.move;
+                const col = calculateCol(step.position);
+                const row = calculateRow(step.position);
+                const value = move % 2 === 1 ? 'X' : '0';
+                const desc = move ?
+                    'Go to move #' + move + ' ' + value + '@( ' + col + ', ' + row + ' )' :
+                    'Go to game start';
+                return (
+                    <li key={move}>
+                        <button
+                            className={move === this.state.stepNumber ? 'highlight' : ''}
+                            onClick={() => this.jumpTo(move)}
+                        >
+                            {desc}
+                        </button>
+                    </li>
+                )
+            });
 
         let status;
         if (winner) {
@@ -109,6 +124,13 @@ class Game extends React.Component {
         } else {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
         }
+
+        const ascending =
+            <button
+                onClick={() => this.toggleAscending()}
+            >
+                {this.state.ascending ? 'Ascending' : 'Descending'}
+            </button>;
 
         return (
             <div className="game">
@@ -119,6 +141,7 @@ class Game extends React.Component {
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
+                    <div>{ascending}</div>
                     <div>{moves}</div>
                 </div>
             </div>
