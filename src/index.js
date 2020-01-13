@@ -63,14 +63,24 @@ class Game extends React.Component {
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
-        if (calculateWinner(squares) || squares[i]) {
+
+        // don't allow a move if game is already won
+        if (calculateWinner(squares)) {
             return;
         }
-        squares[i] = this.state.xIsNext ? 'X' : 'O';
+
+        const index = calculateLowestOpenColumnPosition(squares, i);
+        // don't allow move if column already full
+        if (index === null) {
+            return;
+        }
+        
+        squares[index] = this.state.xIsNext ? 'X' : 'O';
+
         this.setState({
             history: history.concat([{
                 squares: squares,
-                position: i
+                position: index
             }]),
             stepNumber: history.length,
             xIsNext: !this.state.xIsNext
@@ -133,6 +143,7 @@ class Game extends React.Component {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
         }
 
+        // button to toggle whether history is ascending/descending
         const ascending =
             <button
                 onClick={() => this.toggleAscending()}
@@ -188,6 +199,15 @@ function getNeighborUp(i) {
     return next;
 }
 
+function getNeighborDown(i) {
+    const next = i + width;
+    if (next >= width * height) {
+        return null;
+    }
+    return next;
+}
+
+
 function getNeighborUpRight(i) {
     const next = i - width + 1;
     if (next < 0) {
@@ -239,6 +259,21 @@ function calculateWinner(squares) {
     }
 
     return null;
+}
+
+function calculateLowestOpenColumnPosition(squares, i) {
+    let bottom = (width * (height - 1)) + i % width;
+    for(; bottom >= 0; bottom -= width ) {
+        if(squares[bottom] === null) {
+            return bottom;
+        }
+    }
+
+    return null;
+}
+
+function calculateColumnFull(i) {
+    return false;
 }
 
 ReactDOM.render(
