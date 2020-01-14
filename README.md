@@ -16,7 +16,7 @@ Then modifying and extending it into a connect four game
 > 6. ~~When no one wins, display a message about the result being a draw.~~
 
 ## Connect 4 Next Steps ##
-1. ~~Detect lines dynamically (DFS)~~
+1. ~~Detect lines dynamically (DFS-ish)~~
 2. ~~Expand grid from 3x3 to 7x6 and make a win a line of 4~~
 3. ~~Change Xs and Os to red and blue circles~~
 4. ~~Dropping animation~~
