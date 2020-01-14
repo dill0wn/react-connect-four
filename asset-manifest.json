@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/react-connect-four/static/css/main.b6991318.chunk.css",
+    "main.js": "/react-connect-four/static/js/main.0bee4b70.chunk.js",
+    "main.js.map": "/react-connect-four/static/js/main.0bee4b70.chunk.js.map",
+    "runtime-main.js": "/react-connect-four/static/js/runtime-main.5bb70f13.js",
+    "runtime-main.js.map": "/react-connect-four/static/js/runtime-main.5bb70f13.js.map",
+    "static/js/2.74caac74.chunk.js": "/react-connect-four/static/js/2.74caac74.chunk.js",
+    "static/js/2.74caac74.chunk.js.map": "/react-connect-four/static/js/2.74caac74.chunk.js.map",
+    "index.html": "/react-connect-four/index.html",
+    "precache-manifest.430a2d0b739925c41c1b929e9e21a5b3.js": "/react-connect-four/precache-manifest.430a2d0b739925c41c1b929e9e21a5b3.js",
+    "service-worker.js": "/react-connect-four/service-worker.js",
+    "static/css/main.b6991318.chunk.css.map": "/react-connect-four/static/css/main.b6991318.chunk.css.map",
+    "static/js/2.74caac74.chunk.js.LICENSE": "/react-connect-four/static/js/2.74caac74.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5bb70f13.js",
+    "static/js/2.74caac74.chunk.js",
+    "static/css/main.b6991318.chunk.css",
+    "static/js/main.0bee4b70.chunk.js"
+  ]
+}
